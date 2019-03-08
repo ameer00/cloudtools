@@ -88,3 +88,4 @@ RUN curl -Lo skaffold https://storage.googleapis.com/skaffold/releases/latest/sk
 RUN chmod +x skaffold
 RUN mv skaffold /usr/bin
 
+EXPOSE 8000:8000
