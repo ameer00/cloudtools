@@ -1,0 +1,68 @@
+# ~/.bashrc: executed by bash(1) for non-login shells.
+
+# set a fancy prompt (non-color, unless we know we "want" color)
+case "$TERM" in
+    xterm-color) color_prompt=yes;;
+esac
+force_color_prompt=yes
+
+# Note: PS1 and umask are already set in /etc/profile. You should not
+# need this unless you want different defaults for root.
+# PS1='${debian_chroot:+($debian_chroot)}\h:\w\$ '
+# umask 022
+
+# You may uncomment the following lines if you want `ls' to be colorized:
+# export LS_OPTIONS='--color=auto'
+# eval "`dircolors`"
+# alias ls='ls $LS_OPTIONS'
+# alias ll='ls $LS_OPTIONS -l'
+# alias l='ls $LS_OPTIONS -lA'
+#
+# Some more alias to avoid making mistakes:
+# alias rm='rm -i'
+# alias cp='cp -i'
+# alias mv='mv -i'
+[ -f ~/.kubectl_aliases ] && source ~/.kubectl_aliases
+#### K-PROMPT START
+
+NORMAL="\[\033[00m\]"
+BOLD="\[\033[1m\]"
+BLUE="\[\033[01;34m\]"
+YELLOW="\[\e[1;33m\]"
+GREEN="\[\e[1;32m\]"
+
+__kube_ps1()
+{
+        if [ ! -f /root/.kube/config ]; then
+       echo "N/A"
+    else
+        # Get current context
+        CONTEXT=$(cat ~/.kube/config | grep "current-context:" | sed "s/current-context: //")
+        NAMESPACE=$(kubectl config view -o=jsonpath="{.contexts[?(@.name==\"${CONTEXT}\")].context.namespace}")
+        if [ -z $NAMESPACE ]; then NAMESPACE="default"; fi
+
+                if [ -n "$CONTEXT" ]; then
+                echo "(${CONTEXT} in ${NAMESPACE} namespace)"
+        fi
+    fi
+}
+
+__gcp_project()
+{
+        export CUR_PROJECT=$(gcloud config get-value project 2> /dev/null)
+        if [ -z $CUR_PROJECT ]; then GCP_PROJECT_ID="N/A"; else GCP_PROJECT_ID=$CUR_PROJECT; fi
+        echo $GCP_PROJECT_ID
+}
+
+# export PS1="│$(date +%d\-%b\ %H:%M) \w ⎈ Ⴤ ക \n└─⪧ "
+export PS1="│${BOLD}\$(date +%d\-%b\ %H:%M) ${BLUE}\u in ⎔ \$(__gcp_project) ⪧ \w ${GREEN}⎈\$(__kube_ps1)${YELLOW} Ⴤ [\$(git branch 2>/dev/null | grep "^*" | colrm 1 2)] ${NORMAL}ക \n└─⪧ "
+
+##### K-PROMPT END
+
+alias kctx=kubectx
+alias kens=kubens
+alias c=clear
+alias ll='ls -l'
+alias la='ls -al'
+
+export PATH=$PATH:$HOME/bin:$HOME/go/bin
