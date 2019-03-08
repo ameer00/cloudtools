@@ -55,7 +55,7 @@ __gcp_project()
 }
 
 # export PS1="│$(date +%d\-%b\ %H:%M) \w ⎈ Ⴤ ക \n└─⪧ "
-export PS1="│${BOLD}\$(date +%d\-%b\ %H:%M) ${BLUE}\u in ⎔ \$(__gcp_project) ⪧ \w ${GREEN}⎈ \$(__kube_ps1)${YELLOW} Ⴤ [\$(git branch 2>/dev/null | grep "^*" | colrm 1 2)] ${NORMAL}ക \n└─⪧ "
+export PS1="_____ CLOUD TOOLS v1 _____\n│${BOLD}\$(date +%d\-%b\ %H:%M) ${BLUE}\u in ⎔ \$(__gcp_project) ⪧ \w ${GREEN}⎈ \$(__kube_ps1)${YELLOW} Ⴤ [\$(git branch 2>/dev/null | grep "^*" | colrm 1 2)] ${NORMAL}ക \n└─⪧ "
 
 ##### K-PROMPT END
 

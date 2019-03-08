@@ -20,7 +20,7 @@ RUN /bin/bash -c "source $HOME/.bashrc"
 ENV ISTIO_VERSION 1.0.6
 RUN curl -L https://git.io/getLatestIstio | ISTIO_VERSION=$ISTIO_VERSION sh -
 
-RUN apt-get install jq nano vim sudo unzip apt-transport-https lsb-release software-properties-common dirmngr apache2-utils man -y
+RUN apt-get install wget jq nano vim sudo unzip apt-transport-https lsb-release software-properties-common dirmngr apache2-utils man locate tcpdump traceroute telnet -y
 
 RUN curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
 RUN unzip awscli-bundle.zip
@@ -62,4 +62,4 @@ RUN mv terraform $HOME/bin/.
 
 RUN curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get > get_helm.sh
 RUN chmod 700 get_helm.sh
-RUN ./get_helm.sh &> /dev/null
+RUN /bin/bash -c "./get_helm.sh &> /dev/null"
