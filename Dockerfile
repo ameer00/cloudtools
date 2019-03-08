@@ -56,3 +56,10 @@ ENV PATH "$PATH:/usr/local/go/bin:$HOME/go/bin"
 RUN go get -u github.com/rakyll/hey
 RUN go get fortio.org/fortio
 
+RUN wget https://releases.hashicorp.com/terraform/0.11.11/terraform_0.11.11_linux_amd64.zip
+RUN unzip terraform_0.11.11_linux_amd64.zip
+RUN mv terraform $HOME/bin/.
+
+RUN curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get > get_helm.sh
+RUN chmod 700 get_helm.sh
+RUN ./get_helm.sh &> /dev/null
