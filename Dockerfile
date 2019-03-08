@@ -5,6 +5,26 @@ RUN apt-get update
 WORKDIR /root
 ADD cloudtools_bashrc .bashrc
 
+# Message of the Day
+RUN echo '[ ! -z "$TERM" -a -r /etc/motd ] && cat /etc/motd' \
+    >> /etc/bash.bashrc \
+    ; echo "\
+\n\n===================================================================\n\
+= Cloud Tools v1.0= A Multicloud Multitoolkit.                    =\n\
+===================================================================\n\
+\n\
+Cloud Tools contains a plethora of devops tool for setting up infrastructure in a multi cloud environment.\n\
+Cloud CLI: for Google Cloud Platform (gcloud), AWS (aws, eksctl, kops) and Azure (az).\n\
+Kubernetes: kubectl, helm, kubectx, kubens, kubectl aliases, aws iam authenticator, heptio authenticator aws.\n\
+Cloud Infra: Terraform, docker.\n\
+Perf Testing: ab, hey, fortio.\n\
+Dev Tools: git, jq, vim, nano, skaffold.\n\ 
+Support for Python2, Python3 and Go.\n\n\
+===================================================================\n\n\
+(c) Ameer Abbas. 2019. @ameer00\n\
+\n"\
+    > /etc/motd
+
 RUN git clone https://github.com/ahmetb/kubectx kubectx
 RUN chmod +x kubectx/kubectx
 RUN chmod +x kubectx/kubens
@@ -63,3 +83,8 @@ RUN mv terraform $HOME/bin/.
 RUN curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get > get_helm.sh
 RUN chmod 700 get_helm.sh
 RUN /bin/bash -c "./get_helm.sh &> /dev/null"
+
+RUN curl -Lo skaffold https://storage.googleapis.com/skaffold/releases/latest/skaffold-linux-amd64
+RUN chmod +x skaffold
+RUN mv skaffold /usr/bin
+
