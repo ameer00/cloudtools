@@ -87,5 +87,3 @@ RUN /bin/bash -c "./get_helm.sh &> /dev/null"
 RUN curl -Lo skaffold https://storage.googleapis.com/skaffold/releases/latest/skaffold-linux-amd64
 RUN chmod +x skaffold
 RUN mv skaffold /usr/bin
-
-EXPOSE 8000:8000
