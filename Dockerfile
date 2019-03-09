@@ -10,7 +10,7 @@ RUN echo '[ ! -z "$TERM" -a -r /etc/motd ] && cat /etc/motd' \
     >> /etc/bash.bashrc \
     ; echo "\
 \n\n===================================================================\n\
-= Cloud Tools v1.0= A Multicloud Multitoolkit.                    =\n\
+= Cloud Tools v1.0 : A Multicloud Multitoolkit.                    =\n\
 ===================================================================\n\
 \n\
 Cloud Tools contains a plethora of devops tool for setting up infrastructure in a multi cloud environment.\n\
@@ -40,7 +40,7 @@ RUN /bin/bash -c "source $HOME/.bashrc"
 ENV ISTIO_VERSION 1.0.6
 RUN curl -L https://git.io/getLatestIstio | ISTIO_VERSION=$ISTIO_VERSION sh -
 
-RUN apt-get install wget jq nano vim sudo unzip apt-transport-https lsb-release software-properties-common dirmngr apache2-utils man locate tcpdump traceroute telnet -y
+RUN apt-get install wget jq nano vim sudo unzip apt-transport-https lsb-release software-properties-common dirmngr apache2-utils man locate tcpdump traceroute telnet pv -y
 
 RUN curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
 RUN unzip awscli-bundle.zip
